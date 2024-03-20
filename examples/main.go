@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/charmbracelet/log"
 	"github.com/sebastianwebber/berr"
@@ -33,6 +34,7 @@ func main() {
 
 	for k, v := range examples {
 		berr.Logger(v, "example", k).Info("message")
+		time.Sleep(1 * time.Second)
 	}
 
 	// you could only use the formatter if you want
