@@ -4,8 +4,8 @@ Require echo
 
 Set Shell "zsh"
 Set FontSize 26
-Set Width 1400
-Set Height 2000
+Set Width 1600
+Set Height 1600
 Set Theme "Catppuccin Mocha"
 
 Set Margin 80
@@ -21,5 +21,5 @@ Enter
 Type "go run main.go"
 Enter
 
-Sleep 5s
+Sleep 15s
 

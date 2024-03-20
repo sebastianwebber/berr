@@ -15,4 +15,4 @@ go get github.com/sebastianwebber/berr@latest
 ## Example
 
 ![example](./examples.gif)
-> check `./examples/main.go` for details.
+> check [`./examples/main.go`](./examples/main.go) for details.
