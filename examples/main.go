@@ -4,17 +4,22 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/charmbracelet/log"
 	"github.com/sebastianwebber/berr"
 )
 
 func main() {
 
 	var (
-		simpleError         = berr.New("simple error")
+		simpleError = berr.New("simple error")
+
+		// since berr.betterError implements the Error interface, it can
+		// be used as a normal error.
 		complexError        = fmt.Errorf("complex error: %w", simpleError)
 		veryComplexError    = fmt.Errorf("very complex error: %w", complexError)
 		ultraComplexError   = fmt.Errorf("ultra complex error: %w", veryComplexError)
 		godLikeComplexError = fmt.Errorf("god like complex error: %w", ultraComplexError)
+		abortError          = fmt.Errorf("need to abort: %w", complexError)
 
 		examples = map[string]error{
 			"simple error":           simpleError,
@@ -29,4 +34,7 @@ func main() {
 	for k, v := range examples {
 		berr.Logger(v, "example", k).Info("message")
 	}
+
+	// you could only use the formatter if you want
+	log.Fatal("finishing with an error", "details", berr.Format(abortError))
 }
