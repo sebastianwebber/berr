@@ -10,7 +10,7 @@ import (
 func main() {
 
 	var (
-		simpleError         = errors.New("simple error")
+		simpleError         = berr.New("simple error")
 		complexError        = fmt.Errorf("complex error: %w", simpleError)
 		veryComplexError    = fmt.Errorf("very complex error: %w", complexError)
 		ultraComplexError   = fmt.Errorf("ultra complex error: %w", veryComplexError)

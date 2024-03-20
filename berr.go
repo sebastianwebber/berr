@@ -6,9 +6,10 @@ import (
 	"strings"
 )
 
-// New returns a Better Error
-func New(err error) error {
-	return parse(err)
+// New returns a Better Error with a interface
+// compatible with the errors.New()
+func New(text string) error {
+	return parse(errors.New(text))
 }
 
 // betterError is a struct to hold the error message and the cause of the error
