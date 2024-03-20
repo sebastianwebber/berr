@@ -14,46 +14,5 @@ go get github.com/sebastianwebber/berr@latest
 
 ## Example
 
-```shell
-❯ go run examples/main.go
-2024/03/20 12:09:31 INFO message example="simple error" error="simple error"
-2024/03/20 12:09:31 INFO message example="complex error"
-  error=
-  │ complex error
-  │
-  │ caused by:
-  │    0: simple error
-2024/03/20 12:09:31 INFO message example="very complex error"
-  error=
-  │ very complex error
-  │
-  │ caused by:
-  │    0: complex error
-  │    1: simple error
-2024/03/20 12:09:31 INFO message example="ultra complex error"
-  error=
-  │ ultra complex error
-  │
-  │ caused by:
-  │    0: very complex error
-  │    1: complex error
-  │    2: simple error
-2024/03/20 12:09:31 INFO message example="god like complex error"
-  error=
-  │ god like complex error
-  │
-  │ caused by:
-  │    0: ultra complex error
-  │    1: very complex error
-  │    2: complex error
-  │    3: simple error
-2024/03/20 12:09:31 INFO message example="join error"
-  error=
-  │ simple error
-  │
-  │ complex error
-  │
-  │ caused by:
-  │    0: simple error
-
-```
+![example](./examples.gif)
+> check `./examples/main.go` for details.
