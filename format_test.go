@@ -4,26 +4,19 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/suite"
 )
 
-type betterErrorsTestSuite struct {
-	suite.Suite
-}
-
-func TestBetterErrors(t *testing.T) {
-	suite.Run(t, new(betterErrorsTestSuite))
-}
+var (
+	simpleError         = errors.New("simple error")
+	complexError        = fmt.Errorf("complex error: %w", simpleError)
+	veryComplexError    = fmt.Errorf("very complex error: %w", complexError)
+	ultraComplexError   = fmt.Errorf("ultra complex error: %w", veryComplexError)
+	godLikeComplexError = fmt.Errorf("god like complex error: %w", ultraComplexError)
+)
 
 func (suite *betterErrorsTestSuite) TestFormat() {
-	simpleError := errors.New("simple error")
-	complexError := fmt.Errorf("complex error: %w", simpleError)
-	veryComplexError := fmt.Errorf("very complex error: %w", complexError)
-	ultraComplexError := fmt.Errorf("ultra complex error: %w", veryComplexError)
-	godLikeComplexError := fmt.Errorf("god like complex error: %w", ultraComplexError)
 
 	cases := []struct {
 		name string

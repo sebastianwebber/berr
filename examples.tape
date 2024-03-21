@@ -5,7 +5,7 @@ Require echo
 Set Shell "zsh"
 Set FontSize 26
 Set Width 1200
-Set Height 700
+Set Height 1000
 Set Theme "Catppuccin Mocha"
 
 Set Margin 20

@@ -37,6 +37,8 @@ func (p betterError) Error() string {
 		output = append(output, fmt.Sprintf("  %2d: %s", l, c.errMsg))
 	}
 
+	output = append(output, collectStackTrace()...)
+
 	return strings.Join(output, "\n")
 }
 
