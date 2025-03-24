@@ -61,3 +61,8 @@ func (p betterError) Unwrap() []error {
 
 	return []error{p.originalErr}
 }
+
+// Errorf returns a Better Error with a formatted string
+func Errorf(format string, a ...any) error {
+	return parse(fmt.Errorf(format, a...))
+}
