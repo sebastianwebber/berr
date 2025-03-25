@@ -44,7 +44,7 @@ func (p betterError) Error() string {
 
 func padMessage(l int, msg string) string {
 	if strings.ContainsRune(msg, '\n') {
-		parts := strings.Split(strings.TrimSuffix(msg, "\n"), "\n")
+		parts := strings.Split(strings.TrimSpace(strings.TrimSuffix(msg, "\n")), "\n")
 		return fmt.Sprintf("  %2d: %s", l, strings.Join(parts, "\n      "))
 	}
 

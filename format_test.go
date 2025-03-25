@@ -25,6 +25,15 @@ var (
 
 		return fmt.Errorf("%s: %w", combinedOutput.String(), err)
 	}()
+	spacesOutputExitError = func() error {
+		cmd := exec.Command("bash", "-c", `echo "      \t message from stdout" && echo "\t \t    error msg from stderr     \n" >&2 && exit 1 `)
+		cmd.Stdout = &combinedOutput
+		cmd.Stderr = &combinedOutput
+
+		err := cmd.Run()
+
+		return fmt.Errorf("%s: %w", combinedOutput.String(), err)
+	}()
 )
 
 func (suite *betterErrorsTestSuite) TestFormat() {
@@ -94,6 +103,18 @@ func (suite *betterErrorsTestSuite) TestFormat() {
 		},
 		{
 			"with errors from cmd.Execute",
+			fmt.Errorf("error running command: %w", cmdExitError),
+			strings.Join([]string{
+				"error running command",
+				"",
+				"caused by:",
+				"   0: message from stdout",
+				"      error msg from stderr",
+				"   1: exit status 1",
+			}, "\n"),
+		},
+		{
+			"with spaces and output from cmd.Execute",
 			fmt.Errorf("error running command: %w", cmdExitError),
 			strings.Join([]string{
 				"error running command",
