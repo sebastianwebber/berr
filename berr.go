@@ -34,12 +34,21 @@ func (p betterError) Error() string {
 
 	for l := 0; l < len(p.cause); l++ {
 		c := parse(p.cause[l])
-		output = append(output, fmt.Sprintf("  %2d: %s", l, c.errMsg))
+		output = append(output, padMessage(l, c.errMsg))
 	}
 
 	output = append(output, collectStackTrace()...)
 
 	return strings.Join(output, "\n")
+}
+
+func padMessage(l int, msg string) string {
+	if strings.ContainsRune(msg, '\n') {
+		parts := strings.Split(strings.TrimSuffix(msg, "\n"), "\n")
+		return fmt.Sprintf("  %2d: %s", l, strings.Join(parts, "\n      "))
+	}
+
+	return fmt.Sprintf("  %2d: %s", l, msg)
 }
 
 func (p betterError) Unwrap() []error {

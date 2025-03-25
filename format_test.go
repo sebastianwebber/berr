@@ -1,11 +1,12 @@
 package berr
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
-	"strings"
-
 	"github.com/stretchr/testify/assert"
+	"os/exec"
+	"strings"
 )
 
 var (
@@ -14,10 +15,19 @@ var (
 	veryComplexError    = fmt.Errorf("very complex error: %w", complexError)
 	ultraComplexError   = fmt.Errorf("ultra complex error: %w", veryComplexError)
 	godLikeComplexError = fmt.Errorf("god like complex error: %w", ultraComplexError)
+	combinedOutput      bytes.Buffer
+	cmdExitError        = func() error {
+		cmd := exec.Command("bash", "-c", `echo "message from stdout" && echo "error msg from stderr" >&2 && exit 1 `)
+		cmd.Stdout = &combinedOutput
+		cmd.Stderr = &combinedOutput
+
+		err := cmd.Run()
+
+		return fmt.Errorf("%s: %w", combinedOutput.String(), err)
+	}()
 )
 
 func (suite *betterErrorsTestSuite) TestFormat() {
-
 	cases := []struct {
 		name string
 		args error
@@ -80,6 +90,18 @@ func (suite *betterErrorsTestSuite) TestFormat() {
 				"",
 				"caused by:",
 				"   0: simple error",
+			}, "\n"),
+		},
+		{
+			"with errors from cmd.Execute",
+			fmt.Errorf("error running command: %w", cmdExitError),
+			strings.Join([]string{
+				"error running command",
+				"",
+				"caused by:",
+				"   0: message from stdout",
+				"      error msg from stderr",
+				"   1: exit status 1",
 			}, "\n"),
 		},
 	}
