@@ -11,13 +11,14 @@ type Config struct {
 }
 
 var (
+	// Options var is the default configuration used by this package
 	Options = Config{
 		PrintStack:        false,
 		ShowCompleteStack: false,
 	}
 )
 
-// Reset sets the default options
+// Reset sets the default options for the package
 func Reset() {
 	Options.PrintStack = false
 	Options.ShowCompleteStack = false
