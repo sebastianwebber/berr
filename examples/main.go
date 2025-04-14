@@ -33,7 +33,7 @@ var (
 func main() {
 	defer endFunc()
 	for k, v := range examples {
-		berr.Logger(v, "example", k).Info("message")
+		logger(v, "example", k).Info("message")
 		time.Sleep(1 * time.Second)
 	}
 }
@@ -42,4 +42,9 @@ func endFunc() {
 	berr.Options.PrintStack = true
 	// you could only use the formatter if you want
 	log.Fatal("finishing with an error and stack trace", "details", berr.Format(abortError))
+}
+
+func logger(err error, args ...any) *log.Logger {
+	args = append(args, "error", berr.Format(err))
+	return log.With(args...)
 }
