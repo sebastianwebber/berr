@@ -16,7 +16,7 @@ Set WindowBarSize 40
 Set Framerate 24
 
 
-Type "go run examples/main.go"
+Type "cd examples ; go run main.go"
 Enter
 
 Sleep 15s

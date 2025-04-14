@@ -7,7 +7,7 @@ import (
 )
 
 // Parse converts a error into a betterError
-// Is usefull to convert a existing error to the betterError type
+// Is useful to convert a existing error to the betterError type
 func Parse(err error) betterError {
 	return parse(err)
 }
